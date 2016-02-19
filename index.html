@@ -14,24 +14,25 @@
 		<h1>{{ myProfile.name || 'Your Name'}}</h1>
 	</div>
   
+  {{serviceTest}}
   <div class="wrapper">  
     <div>
       <h2>Profile</h2>
-      <button class="l-btn l-btn-main">Editing :</button>
+      <button class="l-btn l-btn-main" ng-click = 'editing = !editing'>Editing: {{editing}}</button>
     </div>
 
     <div>      
 
-      <input id="name" type="text" placeholder="Your Name" ng-model='myProfile.name'>
+      <input id="name" type="text" placeholder="Your Name" ng-model='myProfile.name' ng-disabled = '!editing'>
       <br />
 
-      <input id="likes" type="text" placeholder="Likes">
+      <input id="likes" type="text" placeholder="Likes" ng-model = 'myProfile.likes' ng-disabled = '!editing'>
       <br />
 
-      <input id="favColor" type="text" placeholder="Favorite Color">
+      <input id="favColor" type="text" placeholder="Favorite Color" ng-model = 'myProfile.colors' ng-disabled = '!editing'>
       <br />
-      <button class="l-btn l-btn-success">Save</button>
-      <button class="l-btn l-btn-danger">Delete</button>
+      <button class="l-btn l-btn-success" ng-click = 'saveProfile(myProfile)'>Save</button>
+      <button class="l-btn l-btn-danger" ng-click = 'deleteProfile()'>Delete</button>
     </div>
   </div>
 
@@ -72,6 +73,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
 <script src='js/app.js'></script>
 <script src='js/homeCtrl.js'></script>
+<script src='js/profileService.js'></script>
 </body>
 
 </html>
