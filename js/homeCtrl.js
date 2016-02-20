@@ -1,11 +1,28 @@
 angular.module('devMtIn').controller("homeCtrl", function($scope, profileService) {
-	$scope.myProfile =
+	/*$scope.myProfile =
+		
 		profileService.checkForProfile();
 
-		/*name: 'Nishu',
+		name: 'Nishu',
 		friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name: 'Zac'}, {name: 'Erin'}],
 		likes: "",
 		colors: ""*/
+
+	$scope.checkForProfile = function(){
+		var profileId = JSON.parse(localStorage.getItem('profileId'));
+
+		if(profileId) {
+			profileService.checkForProfile(profileId.profileId)
+			.then(function(profile) {
+				$scope.myProfile = profile.data;
+			})
+			.catch(function(err) {
+				console.error(err);
+			});	
+		}
+	}
+
+	$scope.checkForProfile();
 
 	$scope.sortOptions = [{
 		display: 'Ascending',
@@ -25,8 +42,15 @@ angular.module('devMtIn').controller("homeCtrl", function($scope, profileService
 	}
 
 	$scope.deleteProfile = function() {
-		localStorage.removeItem('profile');
-		$scope.myProfile = profileService.checkForProfile();
+		profileService.deleteProfile()
+		.then(function(deletedProfile) {
+			localStorage.removeItem('profileId');
+			$scope.myProfile = {};
+		})
+		.catch(function(err) {
+			console.error(err);
+		});
+		
 	}
 
 	$scope.serviceTest = profileService.serviceTest();
