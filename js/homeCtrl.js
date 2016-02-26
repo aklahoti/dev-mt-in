@@ -1,4 +1,4 @@
-angular.module('devMtIn').controller("homeCtrl", function($scope, profileService) {
+angular.module('devMtIn').controller("homeCtrl", function($scope, profileService, friendService) {
 	/*$scope.myProfile =
 		
 		profileService.checkForProfile();
@@ -54,6 +54,20 @@ angular.module('devMtIn').controller("homeCtrl", function($scope, profileService
 	}
 
 	$scope.serviceTest = profileService.serviceTest();
+
+	$scope.findFriends = function(query) {
+		friendService.findFriends($scope.myProfile._id, query)
+		.then(function(response) {
+			$scope.potentialFriends = response.data;
+		})
+	}
+
+	$scope.addFriend = function(friendId) {
+		friendService.addFriend($scope.myProfile._id, friendId)
+		.then(function(profile) {
+			$scope.checkForProfile(profile);
+		})
+	}
 
 
 
