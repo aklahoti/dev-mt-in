@@ -46,7 +46,7 @@
 
     <div class="friendList" ng-repeat = "friend in myProfile.friends | filter: findFriend.name | orderBy: 'name' : sortReverse">
 
-      <span class="closeBtn"></span>
+      <span class="closeBtn" ng-click = 'removeFriend(friend._id)'></span>
 
       
         {{friend.name}}
